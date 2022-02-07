@@ -1,4 +1,5 @@
-import { select, templates } from '../settings.js';
+import { settings, select, templates } from '../settings.js';
+import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
 import HourPicker from './HourPicker.js';
@@ -9,6 +10,61 @@ class Booking {
 
     thisBooking.render(bookingContainer);
     thisBooking.initWidgets();
+    thisBooking.getData();
+  }
+
+  getData() {
+    const thisBooking = this;
+
+    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+
+    const params = {
+      booking: [
+        startDateParam,
+        endDateParam,
+      ],
+      eventsCurrent: [
+        settings.db.notRepeatParam,
+        startDateParam,
+        endDateParam,
+      ],
+      eventsReapeat: [
+        settings.db.repeatParam,
+        endDateParam,
+      ],
+    };
+
+    // console.log('getData params', params);
+
+    const urls = {
+      booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking.join('&'),
+      eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent.join('&'),
+      eventsReapeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsReapeat.join('&'),
+    };
+
+    // console.log('getData urls', urls);
+
+    Promise.all([
+      fetch(urls.booking),
+      fetch(urls.eventsCurrent),
+      fetch(urls.eventsReapeat),
+    ])
+      .then(function (allResponses) {
+        const bookingsResponse = allResponses[0];
+        const eventsCurrentResponse = allResponses[1];
+        const eventsReapeatResponse = allResponses[2];
+        return Promise.all([
+          bookingsResponse.json(),
+          eventsCurrentResponse.json(),
+          eventsReapeatResponse.json(),
+        ]);
+      })
+      .then(function ([bookings, eventsCurrent, eventsReapeat]) {
+        console.log(bookings);
+        console.log(eventsCurrent);
+        console.log(eventsReapeat);
+      });
   }
 
   render(bookingContainer) {
