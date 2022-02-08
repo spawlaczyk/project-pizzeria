@@ -161,7 +161,6 @@ class Booking {
       thisBooking.tableId = event.target.getAttribute(settings.booking.tableIdAttribute);
       thisBooking.selectedTable = thisBooking.tableId;
     }
-    console.log(thisBooking.selectedTable);
 
     if (clickedElement.classList.contains(classNames.booking.table) && clickedElement.classList.contains(classNames.booking.tableBooked)) {
       alert('Przepraszamy, wybrany stolik jest już zarezerwowany, prosimy o wybranie innego stolika.');
@@ -172,6 +171,12 @@ class Booking {
         table.classList.remove(classNames.booking.tableSelected);
       }
     }
+
+    if(!clickedElement.classList.contains(classNames.booking.tableSelected)){
+      thisBooking.selectedTable = null;
+    }
+    
+    console.log(thisBooking.selectedTable);
   }
 
   render(bookingContainer) {
