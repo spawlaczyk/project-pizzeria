@@ -8,6 +8,8 @@ class Booking {
   constructor(bookingContainer) {
     const thisBooking = this;
 
+    thisBooking.selectedTable;
+
     thisBooking.render(bookingContainer);
     thisBooking.initWidgets();
     thisBooking.getData();
@@ -86,8 +88,8 @@ class Booking {
     const maxDate = thisBooking.datePicker.maxDate;
 
     for (let item of eventsRepeat) {
-      if(item.repeat == 'daily'){
-        for(let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)){
+      if (item.repeat == 'daily') {
+        for (let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)) {
           thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
         }
       }
@@ -117,7 +119,7 @@ class Booking {
     }
   }
 
-  updateDOM(){
+  updateDOM() {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
@@ -125,19 +127,49 @@ class Booking {
 
     let allAvailable = false;
 
-    if(typeof thisBooking.booked[thisBooking.date] == 'undefined', typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined'){
+    if (typeof thisBooking.booked[thisBooking.date] == 'undefined', typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined') {
       allAvailable = true;
     }
 
-    for(let table of thisBooking.dom.tables){
+    for (let table of thisBooking.dom.tables) {
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-      if(!isNaN(tableId)){
+      if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
-      if(!allAvailable && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)){
+      if (!allAvailable && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)) {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
+      }
+    }
+    
+    for(let table of thisBooking.dom.tables){
+      if(table.classList.contains(classNames.booking.tableSelected)){
+        table.classList.remove(classNames.booking.tableSelected);
+        thisBooking.selectedTable = null;
+      }
+    }
+  }
+
+  initTables(event) {
+    const thisBooking = this;
+
+    const clickedElement = event.target;
+
+    if (clickedElement.classList.contains(classNames.booking.table) && !clickedElement.classList.contains(classNames.booking.tableBooked)) {
+      clickedElement.classList.toggle(classNames.booking.tableSelected);
+      thisBooking.tableId = event.target.getAttribute(settings.booking.tableIdAttribute);
+      thisBooking.selectedTable = thisBooking.tableId;
+    }
+    console.log(thisBooking.selectedTable);
+
+    if (clickedElement.classList.contains(classNames.booking.table) && clickedElement.classList.contains(classNames.booking.tableBooked)) {
+      alert('Przepraszamy, wybrany stolik jest już zarezerwowany, prosimy o wybranie innego stolika.');
+    }
+
+    for (let table of thisBooking.dom.tables) {
+      if (table !== clickedElement) {
+        table.classList.remove(classNames.booking.tableSelected);
       }
     }
   }
@@ -162,6 +194,8 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
   }
 
   initWidgets() {
@@ -183,8 +217,12 @@ class Booking {
     //thisBooking.dom.hourPicker.addEventListener('updated', function(){
     //});
 
-    thisBooking.dom.wrapper.addEventListener('updated', function(){
+    thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
+    });
+
+    thisBooking.dom.floorPlan.addEventListener('click', function (event) {
+      thisBooking.initTables(event);
     });
   }
 }
