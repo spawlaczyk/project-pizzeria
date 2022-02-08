@@ -179,6 +179,45 @@ class Booking {
     console.log(thisBooking.selectedTable);
   }
 
+  sendBooking(){
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const payload = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: parseInt(thisBooking.selectedTable),
+      duration: parseInt(thisBooking.hoursAmount.value),
+      ppl: parseInt(thisBooking.peopleAmount.value),
+      starters: [],
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+
+    for(let starter of thisBooking.dom.starters){
+      if(starter.checked == true){
+        payload.starters.push(starter.value);
+      }
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    };
+
+    fetch(url, options)
+      .then(function(response){
+        return response.json();
+      }) .then(function(){
+        thisBooking.makeBooked(payload.date, payload.hour, payload.table, payload.duration);
+        thisBooking.updateDOM();
+      });
+  }
+
   render(bookingContainer) {
     const thisBooking = this;
 
@@ -201,6 +240,14 @@ class Booking {
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
 
     thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
+
+    thisBooking.dom.bookButton = document.querySelector(select.booking.bookButton);
+
+    thisBooking.dom.phone = document.querySelector(select.booking.phone);
+
+    thisBooking.dom.address = document.querySelector(select.booking.address);
+
+    thisBooking.dom.starters = document.querySelectorAll(select.booking.starters);
   }
 
   initWidgets() {
@@ -228,6 +275,11 @@ class Booking {
 
     thisBooking.dom.floorPlan.addEventListener('click', function (event) {
       thisBooking.initTables(event);
+    });
+
+    thisBooking.dom.bookButton.addEventListener('click', function(event){
+      event.preventDefault();
+      thisBooking.sendBooking();
     });
   }
 }
