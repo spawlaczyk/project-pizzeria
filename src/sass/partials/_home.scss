@@ -1,0 +1,208 @@
+/*.home-container {
+  font-family: $font-header;
+  transform: opacity 500ms;
+
+  &.loading {
+    opacity: 0.25;
+  }
+}*/
+
+.home-container {
+  margin: ($base-size * 3.5) auto;
+  padding: ($base-size * 6) ($base-size * 4);
+  background: $color-light;
+  border-bottom: 1px solid lighten($color-dark, 70%);
+  border-radius: $radius;
+  font-family: $font-header;
+}
+
+// Boxes
+
+.boxes {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100%;
+}
+
+.order-online {
+  background-image: url("/images/Home/pizza-1.jpg");
+  background-position: center;
+  background-size: cover;
+  margin-right: 5px;
+  flex: 45%;
+}
+
+.book-table {
+  background-image: url("/images/Home/pizza-2.jpg");
+  background-position: center;
+  background-size: cover;
+  margin-right: 5px;
+  flex: 45%;
+}
+
+.open-hours {
+  background-color: $color-main;
+  margin-top: 5px;
+  flex: 100%;
+
+  h3 {
+    margin: 15px;
+  }
+}
+
+.order-online,
+.book-table,
+.open-hours {
+  margin: 5px 10px 0 0;
+  width: 300px;
+  height: 110px;
+  border-radius: $radius;
+
+  h3 {
+    color: $color-light;
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  p {
+    color: $color-light;
+    font-size: 14px;
+    font-family: $font-text;
+    margin-top: -30px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.order-online,
+.book-table {
+  p {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.order-online:hover,
+.book-table:hover {
+  h3 {
+    transition: 0.5s linear;
+    transform: translateY(-20px);
+  }
+
+  p {
+    transition: 0.5s linear;
+    transform: translateY(-20px);
+    opacity: 1;
+  }
+}
+
+// Carousel
+
+.carousel {
+  height: 300px;
+}
+
+.carousel-cell {
+  display: flex;
+  margin-top: 60px;
+}
+
+.carousel-image {
+  img {
+    object-fit: cover;
+    margin-right: 30px;
+    width: 200px;
+    height: 200px;
+    border-radius: $radius;
+  }
+}
+
+.carousel-text {
+  h2 {
+    font-family: $font-text;
+    font-weight: $font-bold;
+  }
+
+  p {
+    font-family: $font-text;
+    margin-top: 24px;
+  }
+
+  .opinion-author {
+    font-style: italic;
+    font-weight: $font-bold;
+    margin-top: 24px;
+  }
+}
+
+// Gallery
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 60px auto;
+
+  .gallery-box {
+    position: relative;
+    flex: 33%;
+  }
+
+  img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: $radius;
+  }
+
+  li {
+    display: inline;
+    color: $color-light;
+  }
+
+  .icons {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    transform: translateY(-50%);
+    list-style-type: none;
+  }
+
+  a {
+    display: inline;
+    text-decoration: none;
+    color: $color-light;
+    font-size: 20px;
+    margin-right: 7px;
+    opacity: 0;
+  }
+}
+
+.gallery-box:hover {
+  img {
+    filter: brightness(0.6);
+  }
+  a {
+    opacity: 1;
+  }
+
+  a:hover {
+    color: $color-main;
+    transition: all 0.5s;
+  }
+}
+
+// Footer
+
+footer {
+  margin: -30px 0 -30px 0;
+
+  a {
+    text-decoration: underline;
+    font-family: $font-text;
+    font-size: 20px;
+    color: $color-main;
+  }
+}

@@ -10,6 +10,7 @@
     rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="vendor/flickity.min.css">
   <link rel="stylesheet" href="vendor/range-slider.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -24,6 +25,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+          <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -65,6 +67,9 @@
   </header>
 
   <div id="pages">
+    <section id="home">
+      <div class="home-wrapper container"></div>
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -72,6 +77,117 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
+
+  <script id="template-home-widget" type="text/x-handlebars-template">
+    <div class="home-container">
+      <div class="boxes">
+        <div class="order-online">
+          <a href="#order">
+            <h3>ORDER ONLINE</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </a>
+        </div>
+        <div class="book-table">
+          <a href="#booking">
+            <h3>BOOK A TABLE</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </a>
+        </div>
+        <div class="open-hours">
+          <h3>OPENING HOURS:</h3>
+          <p>TUE-SUN 12PM-12AM</p>
+        </div>
+      </div>
+
+      <section class="carousel">
+        <div class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/Home/pizza-3.jpg" alt="img3">
+          </div>
+          <div class="carousel-text">
+            <h2>AMAZING SERVICE!</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi vel dolor rhoncus placerat.
+            </p>
+            <p class="opinion-author">- Margaret Osburne</p>
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/Home/pizza-3.jpg" alt="img3">
+          </div>
+          <div class="carousel-text">
+            <h2>GREAT VENUE!</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi vel dolor rhoncus placerat.
+            </p>
+            <p class="opinion-author">- John Doe</p>
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <div class="carousel-image">
+            <img src="images/Home/pizza-3.jpg" alt="img3">
+          </div>
+          <div class="carousel-text">
+            <h2>BEST SNACKS!</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod nisi vel dolor rhoncus placerat.
+            </p>
+            <p class="opinion-author">- Jane Doe</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery">
+        <div class="gallery-box">
+          <img src="images/Home/pizza-4.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="gallery-box">
+          <img src="images/Home/pizza-5.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="gallery-box">
+          <img src="images/Home/pizza-6.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="gallery-box">
+          <img src="images/Home/pizza-7.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="gallery-box">
+          <img src="images/Home/pizza-8.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="gallery-box">
+          <img src="images/Home/pizza-9.jpg" alt="glimg">
+          <ul class="icons">
+            <li><a href="#"><i class="fas fa-heart"></i></a></li>
+            <li><a href="#"><i class="fas fa-share-alt"></i></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <footer>
+        <a href="#"><p class="footer">View more on instagram</p></a>
+      </footer>
+    </div>
+  </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
@@ -247,6 +363,7 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="vendor/flickity.pkgd.min.js"></script>
   <script src="vendor/range-slider.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
