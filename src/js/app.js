@@ -36,7 +36,7 @@ export const app = {
         /* Run thisApp.activatePage with that id */
         thisApp.activatePage(id);
         /* Change URL hash */
-        window.location.hash = '#/' + id;
+        window.location.hash = '#/' + 'home';
       });
     }
   },
