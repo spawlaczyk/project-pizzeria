@@ -56,6 +56,8 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',
+    orderOnline: '.order-online',
+    bookTable: '.book-table',
   },
   home: {
     box: '.boxes a',

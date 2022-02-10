@@ -1,12 +1,3 @@
-/*.home-container {
-  font-family: $font-header;
-  transform: opacity 500ms;
-
-  &.loading {
-    opacity: 0.25;
-  }
-}*/
-
 .home-container {
   margin: ($base-size * 3.5) auto;
   padding: ($base-size * 6) ($base-size * 4);
@@ -55,7 +46,6 @@
 .book-table,
 .open-hours {
   margin: 5px 10px 0 0;
-  width: 300px;
   height: 110px;
   border-radius: $radius;
 
@@ -182,8 +172,10 @@
 
 .gallery-box:hover {
   img {
+    transition: all 0.5s;
     filter: brightness(0.6);
   }
+  
   a {
     opacity: 1;
   }

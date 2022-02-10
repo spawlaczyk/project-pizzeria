@@ -1,5 +1,6 @@
 /* global Flickity */
-import { templates } from '../settings.js';
+import { select, templates } from '../settings.js';
+import { app } from '../app.js';
 
 class Home {
   constructor(homeContainer) {
@@ -7,9 +8,10 @@ class Home {
 
     thisHome.render(homeContainer);
     thisHome.initWidgets();
+    thisHome.initSubpages();
   }
 
-  render(homeContainer){
+  render(homeContainer) {
     const thisHome = this;
 
     const generatedHTML = templates.homeWidget();
@@ -17,9 +19,11 @@ class Home {
     thisHome.dom = {};
     thisHome.dom.wrapper = homeContainer;
     thisHome.dom.wrapper.innerHTML = generatedHTML;
+    thisHome.dom.orderOnline = document.querySelector(select.nav.orderOnline);
+    thisHome.dom.bookTable = document.querySelector(select.nav.bookTable);
   }
 
-  initWidgets(){
+  initWidgets() {
     new Flickity('.carousel', {
       // options
       autoPlay: 3000,
@@ -28,6 +32,20 @@ class Home {
       imagesLoaded: true,
       prevNextButtons: false,
       pageDots: true,
+    });
+  }
+
+  initSubpages(){
+    const thisHome = this;
+
+    thisHome.dom.orderOnline.addEventListener('click', function(event){
+      event.preventDefault();
+      app.activatePage('order');
+    });
+
+    thisHome.dom.bookTable.addEventListener('click', function(event){
+      event.preventDefault();
+      app.activatePage('booking');
     });
   }
 }
